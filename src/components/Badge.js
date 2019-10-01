@@ -1,12 +1,18 @@
 import React from 'react';
 
 import confLogo from '../statics/images/badge-header.svg';
-import userAvatar from '../statics/images/user.jpg'
+
 
 import '../statics/scss/components/Badge.scss';
 
 class Badge extends React.Component {
+
+    
+
     render() {
+
+        const { avatarUrl, firstName, lastName, jobTitle, twitter} = this.PaymentResponse;
+
         return (
         <div className="Badge">
             <div className="Badge__header">
@@ -14,15 +20,15 @@ class Badge extends React.Component {
             </div>
 
             <div className="Badge__section-name">
-                <img className="Badge__avatar" src={userAvatar} alt="Avatar" />
+                <img className="Badge__avatar" src={avatarUrl} alt="Avatar" />
             <h1>
-                Frank <br /> Contreras
+                {firstName} <br /> {lastName}
             </h1>
             </div>
 
             <div className="Badge__section-info">
-                <h3>Software Engineer</h3>
-                <p>@frank</p>
+                <h3>{jobTitle}</h3>
+                <p>@{twitter}</p>
             </div>
 
             <div className="Badge__footer">#conjf</div>
