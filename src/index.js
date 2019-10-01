@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 
 import Badge from './components/Badge';
 
-import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
+import './statics/scss/global.scss';
 //import App from './App';
 import * as serviceWorker from './serviceWorker';
 
