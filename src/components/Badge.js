@@ -11,7 +11,7 @@ class Badge extends React.Component {
 
     render() {
 
-        const { avatarUrl, firstName, lastName, jobTitle, twitter} = this.PaymentResponse;
+        const { avatarUrl, firstName, lastName, jobTitle, twitter} = this.props;
 
         return (
         <div className="Badge">
