@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 
 
 import Navbar from '../components/Navbar';
@@ -10,7 +10,7 @@ import header from '../statics/images/badge-header.svg';
 
 import '../statics/scss/pages/BadgeNew.scss';
 
-class BadgeNew extends React.Component {
+class BadgeNew extends Component {
 
     state = {
         form: {
@@ -33,8 +33,7 @@ class BadgeNew extends React.Component {
         
     render() {
         return (
-        <div>
-            <Navbar />
+        <Fragment>
             <div className="BadgeNew__hero">
             <img className="img-fluid" src={header} alt="Logo" />
             </div>
@@ -56,7 +55,7 @@ class BadgeNew extends React.Component {
                 </div>
             </div>
             </div>
-        </div>
+        </Fragment>
         );
     }
 }
