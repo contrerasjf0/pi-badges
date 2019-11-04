@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
 import BadgesList from '../components/BadgesList';
+import PageLoading from '../components/PageLoading';
+import PageError from '../components/PageError';
 
 import service from '../services/sevice';
 
@@ -53,11 +55,11 @@ class Badges extends React.Component {
     render() {
 
         if (this.state.loading === true) {
-            return 'Loading...';
+            return <PageLoading />;;
         }
         
         if (this.state.error) {
-            return `Error: ${this.state.error.message}`;
+            return <PageError error={this.state.error} />;
         }
 
         return (
