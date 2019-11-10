@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 
 import BadgeForm from '../components/BadgeForm';
 import Badge from '../components/Badge';
+import PageLoading from '../components/PageLoading';
 
 import userAvatar from '../statics/images/user.jpg'
 import header from '../statics/images/platziconf-logo.svg';
@@ -14,6 +15,8 @@ import '../statics/scss/pages/BadgeNew.scss';
 class BadgeNew extends Component {
 
     state = {
+        loading: false,
+        error: null,
         form: {
             firstName: '',
             lastName: '',
@@ -23,6 +26,11 @@ class BadgeNew extends Component {
             },
         };
 
+        constructor(props){
+            super(props);
+
+            this.service = service;
+        }
         handleChange = e => {
                 this.setState({
                 form: {
@@ -36,14 +44,22 @@ class BadgeNew extends Component {
             this.setState({ loading: true, error: null });
         
             try {
-                await api.badges.create(this.state.form);
+                await this.service.badges.create(this.state.form);
                 this.setState({ loading: false });
+
+                this.props.history.push('/badges');
+
             } catch (error) {
                 this.setState({ loading: false, error: error });
             }
         };
     
     render() {
+
+        if (this.state.loading) {
+            return <PageLoading />;
+        }
+        
         return (
         <Fragment>
             <div className="BadgeNew__hero">
@@ -67,7 +83,8 @@ class BadgeNew extends Component {
                     <BadgeForm
                     onChange={this.handleChange}
                     onSubmit={this.handleSubmit}
-                    formValues={this.state.form}/>
+                    formValues={this.state.form}
+                    error={this.state.error}/>
                 </div>
             </div>
             </div>
