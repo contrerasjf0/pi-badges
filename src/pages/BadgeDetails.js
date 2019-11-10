@@ -1,107 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
-import PageLoading from '../components/PageLoading';
-import PageError from '../components/PageError';
 import Badge from '../components/Badge';
-
-import service from '../services/sevice';
 
 
 import confLogo from '../statics/images/platziconf-logo.svg';
 
-import '../statics/scss/pages/BadgeDetails.scss';
+import '../statics/scss/pages/BadgeDetails.css';
 
-class BadgeDetails extends React.Component {
-    state = {
-        loading: true,
-        error: null,
-        data: undefined,
-    };
+function BadgeDetails(props) {
+    const badge = props.badge;
 
-    constructor(props){
-        super(props);
-
-        this.service = service;
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    fetchData = async () => {
-        this.setState({ loading: true, error: null });
-
-        try {
-        const data = await this.service.badges.read(this.props.match.params.badgeId);
-        this.setState({ loading: false, data: data });
-        } catch (error) {
-        this.setState({ loading: false, error: error });
-        }
-    };
-
-    render() {
-        if (this.state.loading) {
-        return <PageLoading />;
-        }
-
-        if (this.state.error) {
-        return <PageError error={this.state.error} />;
-        }
-
-        const badge = this.state.data;
-
-        return (
+    return (
         <div>
-            <div className="BadgeDetails__hero">
-            <div className="container">
-                <div className="row">
-                <div className="col-6">
-                    <img src={confLogo} alt="Logo de la Conferencia" />
-                </div>
-                <div className="col-6 BadgeDetails__hero-attendant-name">
-                    <h1>
-                    {badge.firstName} {badge.lastName}
-                    </h1>
-                </div>
-                </div>
-            </div>
-            </div>
-
+        <div className="BadgeDetails__hero">
             <div className="container">
             <div className="row">
-                <div className="col">
-                <Badge
-                    firstName={badge.firstName}
-                    lastName={badge.lastName}
-                    email={badge.email}
-                    twitter={badge.twitter}
-                    jobTitle={badge.jobTitle}
-                />
+                <div className="col-6">
+                <img src={confLogo} alt="Logo de la Conferencia" />
                 </div>
-                <div className="col">
+                <div className="col-6 BadgeDetails__hero-attendant-name">
+                <h1>
+                    {badge.firstName} {badge.lastName}
+                </h1>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div className="container">
+            <div className="row">
+            <div className="col">
+                <Badge
+                firstName={badge.firstName}
+                lastName={badge.lastName}
+                email={badge.email}
+                twitter={badge.twitter}
+                jobTitle={badge.jobTitle}
+                />
+            </div>
+            <div className="col">
                 <h2>Actions</h2>
                 <div>
-                    <div>
+                <div>
                     <Link
-                        className="btn btn-primary mb-4"
-                        to={`/badges/${badge.id}/edit`}
+                    className="btn btn-primary mb-4"
+                    to={`/badges/${badge.id}/edit`}
                     >
-                        Edit
+                    Edit
                     </Link>
-                    </div>
+                </div>
 
-                    <div>
+                <div>
                     <button className="btn btn-danger">Delete</button>
-                    </div>
                 </div>
                 </div>
             </div>
             </div>
         </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default BadgeDetails;
